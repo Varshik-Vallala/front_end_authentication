@@ -5,30 +5,47 @@ import './index.css'
 // Write your JS code here
 class RegistrationForm extends Component {
   state = {
-    firstName: '',
-    lastName: '',
+    username: '',
+    password: '',
     firstNameErrorMsg: false,
     lastNameErrorMsg: false,
   }
 
   submitForm = async event => {
     event.preventDefault()
-    const {firstName, lastName} = this.state
-    console.log(firstName)
-    console.log(lastName)
+    const {username, password} = this.state
+    // console.log(firstName)
+    // console.log(lastName)
 
-    if (firstName === '') {
+    if (username === '') {
       this.setState({firstNameErrorMsg: true})
       //   console.log(firstName)
     }
-    if (lastName === '') {
+    if (password === '') {
       this.setState({lastNameErrorMsg: true})
     }
 
-    const userDetails = {firstName, lastName}
+    const userDetails = {username, password}
 
-    if (firstName !== '' && lastName !== '') {
+    // const userDetails = {
+    //   name: 'Varshik',
+    //   username: 'bunny59',
+    //   password: 'bunny@123',
+    //   gender: 'Male',
+    //   location: 'Warangal',
+    // }
+
+    // const userDetails = {
+    //   username: 'bunny59',
+    //   password: 'bunny@123',
+    // }
+
+    console.log(userDetails)
+
+    if (username !== '' && password !== '') {
       const url = 'https://authenticationap.herokuapp.com/login/'
+
+      console.log(typeof firstName)
 
       const options = {
         method: 'POST',
@@ -40,6 +57,8 @@ class RegistrationForm extends Component {
       //   const options = {
       //     method: 'GET',
       //   }
+
+      console.log(options)
 
       const response = await fetch(url, options)
       //   const data = await response.json()
@@ -55,11 +74,11 @@ class RegistrationForm extends Component {
   }
 
   onChangeFirstName = event => {
-    this.setState({firstName: event.target.value})
+    this.setState({username: event.target.value})
   }
 
   onChangeLastName = event => {
-    this.setState({lastName: event.target.value})
+    this.setState({password: event.target.value})
   }
 
   renderFirstName = () => {
@@ -70,13 +89,13 @@ class RegistrationForm extends Component {
     return (
       <div className="input-container">
         <label className="label-element" htmlFor="firstName">
-          FIRST NAME
+          USERNAME
         </label>
         <input
           className={errorClassName}
           id="firstName"
           type="text"
-          placeholder="First Name"
+          placeholder="UserName"
           onChange={this.onChangeFirstName}
         />
         {firstNameErrorMsg && <p className="error-msg">Required</p>}
@@ -93,13 +112,13 @@ class RegistrationForm extends Component {
     return (
       <div className="input-container">
         <label className="label-element" htmlFor="lastName">
-          LAST NAME
+          PASSWORD
         </label>
         <input
           className={errorClassName}
           id="lastName"
           type="password"
-          placeholder="Last Name"
+          placeholder="Password"
           onChange={this.onChangeLastName}
         />
         {lastNameErrorMsg && <p className="error-msg">Required</p>}
